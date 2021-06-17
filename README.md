@@ -1,3 +1,8 @@
+# Gcalman
+
+CLI tool to interact with Google calendar
+
+
 ## Prerequisites
 
 go get -u google.golang.org/api/calendar/v3
