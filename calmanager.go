@@ -8,17 +8,12 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/calendar/v3"
 	"google.golang.org/api/option"
 )
-
-func test(){
-  println("teslll")
-}
 
 // Retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
@@ -95,32 +90,4 @@ func createCalService() *calendar.Service {
 	}
 
 	return srv
-}
-
-func fetchUpcomingEvents(service *calendar.Service, count int64) {
-	t := time.Now().Format(time.RFC3339)
-	events, err := service.Events.List("primary").ShowDeleted(false).
-		SingleEvents(true).TimeMin(t).MaxResults(count).OrderBy("startTime").Do()
-	if err != nil {
-		log.Fatalf("Unable to retrieve next ten of the user's events: %v", err)
-	}
-	fmt.Println("Upcoming events:")
-	if len(events.Items) == 0 {
-		fmt.Println("No upcoming events found.")
-	} else {
-		for _, item := range events.Items {
-			date := item.Start.DateTime
-			if date == "" {
-				date = item.Start.Date
-			}
-			fmt.Printf("%v (%v)\n", item.Summary, date)
-		}
-	}
-
-}
-
-func main() {
-	service := createCalService()
-	fetchUpcomingEvents(service, 20)
-	// Implement Create/Update
 }
