@@ -16,6 +16,10 @@ import (
 	"google.golang.org/api/option"
 )
 
+func test(){
+  println("teslll")
+}
+
 // Retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
@@ -119,5 +123,4 @@ func main() {
 	service := createCalService()
 	fetchUpcomingEvents(service, 20)
 	// Implement Create/Update
-	// test()
 }
